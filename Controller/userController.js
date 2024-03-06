@@ -4,9 +4,10 @@ const express = require("express");
 const router = express.Router();
 //Importamos el modelo con el esquema correspondiente
 const Model = require("../Model/userModel");
+const {verifyToken} = require("../lib/util");
 
 //Escuchar peticiones GET
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   //   Model.find()
   //     .then((data) =>
   //       res.status(200).json({ status: "succeeded ", data, error: null })
@@ -50,7 +51,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const data = new Model({
     name: req.body.name,
-    lastName: req.body.lasName,
+    lastName: req.body.lastName, // Corregir aquí
     email: req.body.email,
     role: req.body.role,
     skills: req.body.skills,
@@ -70,6 +71,7 @@ router.post("/", (req, res) => {
       })
     );
 });
+
 //Actualizar documentos por id
 router.patch("/:id", (req, res) => {
   let id = req.params.id;

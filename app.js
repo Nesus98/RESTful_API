@@ -25,6 +25,7 @@ db.on("disconnected", () => {
 });
 //Importacion de controladores
 const users = require("./Controller/userController");
+const logins = require("./Controller/loginController");
 
 const PORT = 8000;
 //Crear la app
@@ -33,6 +34,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/users", users);
+
+app.use("/auth", logins);
 
 app.listen(PORT, () => {
   console.log(`server valid at http://127.0.0.1:${PORT}`);
